@@ -3,10 +3,12 @@ pipeline {
 
     stages {
         stage ('start') {
-            script {
-                sh """
-                    echo 'simple echo'
-                """
+            steps {
+                script {
+                    sh """
+                        echo 'simple echo'
+                    """
+                }
             }
         }
     }
