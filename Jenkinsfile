@@ -10,7 +10,7 @@ pipeline {
                     sh """
                         echo 'simple echo'
 
-                        echo $branch | sed 's/\\%2F/\\//g'` > branch.txt
+                        echo $branch | sed 's/\\%2F/\\//g' > branch.txt
                         
 
                     """
