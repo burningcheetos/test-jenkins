@@ -17,7 +17,7 @@ pipeline {
                         echo $branch
 
                         # replace
-                        fix_branch_text.sh $branch
+                        sh fix_branch_text.sh $branch
                         new_branch=`cat /tmp/somefile.txt`
                         echo \$new_branch
                     """
