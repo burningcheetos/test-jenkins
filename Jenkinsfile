@@ -13,9 +13,12 @@ pipeline {
                       
                 
                         #stuff
-                        branch=${branch}
-                        echo $branch
+                        branch_raw=${branch}
+                        echo $branch_raw
 
+                        # replace
+                        branch=`echo $branch_raw | sed 's/\%2F/\//g'`
+                        echo $branch
                     """
                 }
             }
