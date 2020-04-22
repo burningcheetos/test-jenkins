@@ -18,7 +18,7 @@ pipeline {
 
                         # replace
                         # sh fix_branch_text.sh $branch
-                        new_branch=`echo $branch | sed 's/\%2F/\//g'`
+                        new_branch=`echo $branch | sed 's/\\%2F/\\//g'`
                         
                         echo \$new_branch
                     """
