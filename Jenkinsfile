@@ -17,8 +17,8 @@ pipeline {
                         echo $branch
 
                         # replace
-                        branch=`echo $branch | sed 's/\\%2F/\\//g'`
-                        echo $branch
+                        branch_new=`echo $branch | sed 's/\\%2F/\\//g'`
+                        echo $branch_new
                     """
                 }
             }
