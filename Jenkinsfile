@@ -13,7 +13,7 @@ pipeline {
                       
                 
                         #stuff
-                        branch="${branch}"
+                        branch=${branch}
                         echo $branch
 
                     """
