@@ -7,7 +7,7 @@ pipeline {
                 script {
                     sh """
                         echo 'simple echo'
-                        echo 'release branch'
+                        echo ${JOB_NAME}
                     """
                 }
             }
