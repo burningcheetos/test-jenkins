@@ -5,10 +5,17 @@ pipeline {
         stage ('start') {
             steps {
                 script {
+                    branch = "${JOB_BASE_NAME}"
+
                     sh """
                         echo 'simple echo'
                         echo ${JOB_NAME}
-                        echo ${JOB_BASE_NAME}
+                      
+                
+                        #stuff
+                        branch=${branch}
+                        echo $branch
+
                     """
                 }
             }
