@@ -9,18 +9,28 @@ pipeline {
 
                     sh """
                         echo 'simple echo'
-                        echo ${JOB_NAME}
-                      
-                
-                        #stuff
-                        branch=${branch}
-                        echo $branch
 
-                        # replace
-                        # sh fix_branch_text.sh $branch
-                        new_branch=`echo $branch | sed 's/\\%2F/\\//g'`
+                        echo $branch | sed 's/\\%2F/\\//g'` > branch.txt
                         
-                        echo \$new_branch
+
+                    """
+                }
+            }
+        }
+        stage ('branch') {
+            steps {
+                script {
+                    def release = readFile "${WORKSPACE}/branch.txt"
+
+                    git branch: "${release}", changelog: false, credentialsId: 'github_key', poll: false, url: 'https://github.com/burningcheetos/test-jenkins.git'
+                }
+            }
+        }
+        stage ('verify') {
+            steps {
+                script {
+                    sh """
+                        ls -l
                     """
                 }
             }
