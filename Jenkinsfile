@@ -17,8 +17,9 @@ pipeline {
                         echo $branch
 
                         # replace
-                        branch_new=`echo $branch | sed 's/\\%2F/\\//g'`
-                        echo $branch_new
+                        echo $branch | sed 's/\\%2F/\\//g' > /tmp/somefile.txt
+                        new_branch=`cat /tmp/somefile.txt`
+                        echo $new_branch
                     """
                 }
             }
