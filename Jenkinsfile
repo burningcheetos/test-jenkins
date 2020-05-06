@@ -1,3 +1,5 @@
+def develop = false
+
 pipeline {
     agent any
 
@@ -9,9 +11,12 @@ pipeline {
 
                     sh """
                         echo 'simple echo'
-
-                        echo $branch | sed 's/\\%2F/\\//g' > branch.txt
-                        
+                        echo ${JOB_NAME}
+                      
+                
+                        #stuff
+                        branch=${branch}
+                        echo $branch
 
                     """
                 }
@@ -32,6 +37,60 @@ pipeline {
                     sh """
                         ls -l
                     """
+                }
+            }
+        }
+        stage ('Get branch') {
+            steps {
+                script {
+                    sh """
+                        echo "${JOB_BASE_NAME}" | sed 's/\\%2F/\\//g' > /tmp/file.txt
+                        cat /tmp/file.txt
+                    """
+                }
+            }
+        }
+        stage ('Dev branch check') {
+            steps {
+                script {
+                    def git_branch = readFile("/tmp/file.txt").trim()
+                    
+                    if (git_branch == "develop") {
+                        echo "develop branch - do stuff"
+                        develop = true
+                    }else{
+                        echo "skipping"
+                    }
+                }
+            }
+        }
+        stage ('Non Dev stuff') {
+            when {
+                expression {
+                    !develop
+                }
+            }
+            steps {
+                script {
+                    def git_branch = readFile("/tmp/file.txt").trim()
+
+                    if (git_branch == "develop") {
+                        return
+                    }else{
+                        echo "do more stuff"
+                    }
+                }
+            }
+        }
+        stage ('Master stuff') {
+            when {
+                expression {
+                    !develop
+                }
+            }
+            steps {
+                script {
+                    echo "hold my stuff"
                 }
             }
         }
