@@ -22,24 +22,6 @@ pipeline {
                 }
             }
         }
-        stage ('branch') {
-            steps {
-                script {
-                    def release = readFile "${WORKSPACE}/branch.txt"
-
-                    git branch: "${release}", changelog: false, credentialsId: 'github_key', poll: false, url: 'https://github.com/burningcheetos/test-jenkins.git'
-                }
-            }
-        }
-        stage ('verify') {
-            steps {
-                script {
-                    sh """
-                        ls -l
-                    """
-                }
-            }
-        }
         stage ('Get branch') {
             steps {
                 script {
