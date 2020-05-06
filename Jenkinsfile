@@ -38,5 +38,14 @@ pipeline {
                 }
             }
         }
+        stage ('Get branch') {
+            steps {
+                script {
+                    sh """
+                        echo ${JOB_BASE_NAME}
+                    """
+                }
+            }
+        }
     }
 }
