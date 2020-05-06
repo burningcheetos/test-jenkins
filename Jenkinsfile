@@ -48,5 +48,18 @@ pipeline {
                 }
             }
         }
+        stage ('Dev branch check') {
+            steps {
+                script {
+                    def git_branch = readFile("/tmp/file.txt").trim()
+                    
+                    if (git_branch == "develop") {
+                        echo "develop branch - do stuff"
+                    }else{
+                        echo "skipping"
+                    }
+                }
+            }
+        } 
     }
 }
