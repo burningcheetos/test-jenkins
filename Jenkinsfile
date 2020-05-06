@@ -1,3 +1,5 @@
+def develop = false
+
 pipeline {
     agent any
 
@@ -37,6 +39,7 @@ pipeline {
                     
                     if (git_branch == "develop") {
                         echo "develop branch - do stuff"
+                        develop = true
                     }else{
                         echo "skipping"
                     }
@@ -44,6 +47,11 @@ pipeline {
             }
         }
         stage ('Non Dev stuff') {
+            when {
+                expression {
+                    !develop
+                }
+            }
             steps {
                 script {
                     def git_branch = readFile("/tmp/file.txt").trim()
@@ -57,6 +65,11 @@ pipeline {
             }
         }
         stage ('Master stuff') {
+            when {
+                expression {
+                    !develop
+                }
+            }
             steps {
                 script {
                     echo "hold my stuff"
