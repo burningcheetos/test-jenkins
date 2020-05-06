@@ -42,6 +42,26 @@ pipeline {
                     }
                 }
             }
-        } 
+        }
+        stage ('Non Dev stuff') {
+            steps {
+                script {
+                    def git_branch = readFile("/tmp/file.txt").trim()
+
+                    if (git_branch == "develop") {
+                        return
+                    }else{
+                        echo "do more stuff"
+                    }
+                }
+            }
+        }
+        stage ('Master stuff') {
+            steps {
+                script {
+                    echo "hold my stuff"
+                }
+            }
+        }
     }
 }
