@@ -42,7 +42,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                        echo ${JOB_BASE_NAME}
+                        echo "${JOB_BASE_NAME}" | sed 's/\\%2F/\\//g' > /tmp/file.txt
+                        cat /tmp/file.txt
                     """
                 }
             }
